@@ -1,0 +1,12 @@
+#ifndef COMPONENTA_GLOBAL_H
+#define COMPONENTA_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(COMPONENTA_LIBRARY)
+#  define COMPONENTA_EXPORT Q_DECL_EXPORT
+#else
+#  define COMPONENTA_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // COMPONENTA_GLOBAL_H

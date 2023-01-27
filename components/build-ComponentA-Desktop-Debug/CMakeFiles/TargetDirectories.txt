@@ -1,0 +1,4 @@
+/home/pcnet.local/matveevnd/workspace/cmakeQtTest/components/build-ComponentA-Desktop-Debug/CMakeFiles/rebuild_cache.dir
+/home/pcnet.local/matveevnd/workspace/cmakeQtTest/components/build-ComponentA-Desktop-Debug/CMakeFiles/edit_cache.dir
+/home/pcnet.local/matveevnd/workspace/cmakeQtTest/components/build-ComponentA-Desktop-Debug/CMakeFiles/ComponentA.dir
+/home/pcnet.local/matveevnd/workspace/cmakeQtTest/components/build-ComponentA-Desktop-Debug/CMakeFiles/ComponentA_autogen.dir
