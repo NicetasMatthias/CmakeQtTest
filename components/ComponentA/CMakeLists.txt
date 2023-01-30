@@ -26,7 +26,6 @@ add_library(ComponentA SHARED
   ${MY_INTERFACE}
 )
 
-include_directories(/usr/local/include)
 #find_library(COMPONENTSCORE5ALPHA ComponentsCore5alpha HINTS /usr/local/lib64)
 
 target_link_libraries(ComponentA PRIVATE Qt${QT_VERSION_MAJOR}::Core ${MY_TARGET_LIBS})

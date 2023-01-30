@@ -27,16 +27,6 @@ include_directories(${MY_INCLUDE_PATH})
 
 include(dependences.cmake)
 
-include_directories(/usr/local/include)
-#find_library(COMPONENTSCORE5ALPHA ComponentsCore5alpha HINTS /usr/local/lib64)
-
-
-
-
-
-#set(COMPONENTA
-#        ${CMAKE_SOURCE_DIR}/components/include/ComponentA/IAObject.h)
-
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(cmakeQtTest
         MANUAL_FINALIZATION
