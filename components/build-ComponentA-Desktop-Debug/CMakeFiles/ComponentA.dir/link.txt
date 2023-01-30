@@ -1,1 +1,0 @@
-/usr/bin/g++ -fPIC -DQT_QML_DEBUG -g -shared -Wl,-soname,libComponentA.so -o libComponentA.so CMakeFiles/ComponentA.dir/ComponentA_autogen/mocs_compilation.cpp.o CMakeFiles/ComponentA.dir/componenta.cpp.o CMakeFiles/ComponentA.dir/aobject.cpp.o  -Wl,-rpath,/usr/local/lib64 /usr/lib64/libQt5Core.so.5.15.2 /usr/local/lib64/libComponentsCore5alpha.so 
