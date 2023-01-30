@@ -19,20 +19,29 @@ set(PROJECT_SOURCES
         MainWindow.cpp
         MainWindow.h
         MainWindow.ui
-)
+    )
+
+set (MY_INCLUDE_PATH ${CMAKE_SOURCE_DIR}/components/include)
+set (MY_COMPONENTS_PATH ${CMAKE_SOURCE_DIR}/components)
+include_directories(${MY_INCLUDE_PATH})
+
+include(dependences.cmake)
 
 include_directories(/usr/local/include)
-find_library(COMPONENTSCORE5ALPHA ComponentsCore5alpha HINTS /usr/local/lib64)
-include_directories(${PROJECT_SOURCE_DIR}/components/include)
+#find_library(COMPONENTSCORE5ALPHA ComponentsCore5alpha HINTS /usr/local/lib64)
 
-set(COMPONENTA
-        ${PROJECT_SOURCE_DIR}/components/include/ComponentA/IAObject.h)
+
+
+
+
+#set(COMPONENTA
+#        ${CMAKE_SOURCE_DIR}/components/include/ComponentA/IAObject.h)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(cmakeQtTest
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        ${COMPONENTA}
+        ${MY_INTERFACE}
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET cmakeQtTest APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -42,19 +51,19 @@ else()
     if(ANDROID)
         add_library(cmakeQtTest SHARED
             ${PROJECT_SOURCES}
-            ${COMPONENTA}
+            ${MY_INTERFACE}
         )
 # Define properties for Android with Qt 5 after find_package() calls as:
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
         add_executable(cmakeQtTest
             ${PROJECT_SOURCES}
-            ${COMPONENTA}
+            ${MY_INTERFACE}
         )
     endif()
 endif()
 
-target_link_libraries(cmakeQtTest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${COMPONENTSCORE5ALPHA})
+target_link_libraries(cmakeQtTest PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${MY_TARGET_LIBS})
 
 set_target_properties(cmakeQtTest PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

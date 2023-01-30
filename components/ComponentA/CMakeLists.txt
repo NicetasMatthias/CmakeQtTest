@@ -12,19 +12,23 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 
+set (MY_INCLUDE_PATH ${CMAKE_SOURCE_DIR}/../include)
+include_directories(${MY_INCLUDE_PATH})
+
+include(dependences.cmake)
+
 add_library(ComponentA SHARED
   ComponentA_global.h
   componenta.cpp
   componenta.h
   aobject.h
   aobject.cpp
-  ${PROJECT_SOURCE_DIR}/../include/ComponentA/IAObject.h
+  ${MY_INTERFACE}
 )
 
 include_directories(/usr/local/include)
-find_library(COMPONENTSCORE5ALPHA ComponentsCore5alpha HINTS /usr/local/lib64)
-include_directories(${PROJECT_SOURCE_DIR}/../include)
+#find_library(COMPONENTSCORE5ALPHA ComponentsCore5alpha HINTS /usr/local/lib64)
 
-target_link_libraries(ComponentA PRIVATE Qt${QT_VERSION_MAJOR}::Core ${COMPONENTSCORE5ALPHA})
+target_link_libraries(ComponentA PRIVATE Qt${QT_VERSION_MAJOR}::Core ${MY_TARGET_LIBS})
 
 target_compile_definitions(ComponentA PRIVATE COMPONENTA_LIBRARY)
