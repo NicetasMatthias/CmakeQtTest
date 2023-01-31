@@ -1,0 +1,13 @@
+{
+    "Name" : "ComponentA",
+    "Version" : "1.0.0",
+    "CompatVersion" : "1.0.0",
+    "Vendor" : "Inteltech",
+    "Description" : "Component A",
+    "Arguments" : [
+        { "Name" :  "--debug", "Parameter" : "", "Description" : "Debug mode"},
+        { "Name" : "--unuse-auth", "Parameter" : "", "Description" : "Do not use AUTH system" }
+    ],
+    "Dependencies" : [
+        { "Name" : "ComponentB", "Version" : "1.0.0", "Type" : "required" }]
+}

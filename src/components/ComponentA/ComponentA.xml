@@ -1,0 +1,9 @@
+<!DOCTYPE ConfigSystem>
+<config_system>
+
+  <!-- Настройки компонента ComponentA -->
+  <component_a>
+      <name> ComponentA </name>
+  </component_a>
+
+</config_system>

@@ -1,6 +1,8 @@
-cmake_minimum_required(VERSION 3.14)
+#Копируем конфиг в директорию сборки
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/ComponentA.xml"
+     DESTINATION ${MY_CONFIG_DESTINATION_PATH})
 
-project(ComponentA LANGUAGES CXX)
+project(ComponentA VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOUIC ON)
@@ -8,12 +10,6 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
-
-set (MY_INCLUDE_PATH ${CMAKE_SOURCE_DIR}/../include)
-include_directories(${MY_INCLUDE_PATH})
 
 include(dependences.cmake)
 
@@ -26,8 +22,8 @@ add_library(ComponentA SHARED
   ${MY_INTERFACE}
 )
 
-#find_library(COMPONENTSCORE5ALPHA ComponentsCore5alpha HINTS /usr/local/lib64)
-
 target_link_libraries(ComponentA PRIVATE Qt${QT_VERSION_MAJOR}::Core ${MY_TARGET_LIBS})
 
 target_compile_definitions(ComponentA PRIVATE COMPONENTA_LIBRARY)
+
+
