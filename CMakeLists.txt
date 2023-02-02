@@ -22,8 +22,16 @@ make_directory("${cmakeTest_BINARY_DIR}/build/applications/configs")
 
 list(APPEND CMAKE_MODULE_PATH "${cmakeTest_SOURCE_DIR}/cmake")
 
+#set(${MY_CONFIG_FILES} "")
 
 add_subdirectory(src)
+
+message("WRONG!!!!!!!!!!!!")
+message("${MY_CONFIG_FILES}")
+
+
+file(COPY ${MY_CONFIG_FILES}
+     DESTINATION ${MY_CONFIG_DESTINATION_PATH})
 
 #есть возможность на этапе сборки сделать симлинки
 #на библиотеки компонентов и скопировать конфиги

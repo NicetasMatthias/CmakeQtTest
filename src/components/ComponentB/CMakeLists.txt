@@ -1,33 +1,31 @@
-#Копируем конфиг в директорию сборки
-file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/ComponentB.xml"
-     DESTINATION ${MY_CONFIG_DESTINATION_PATH})
-
-project(ComponentB LANGUAGES CXX)
+project(ComponentB VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+#Включаем собственные замисимости
 include(dependences.cmake)
 
-set(SRC_LIST
-        ComponentB_global.h
-        componentb.cpp
-        componentb.h
-        bobject.h
-        bobject.cpp
-        objects/wordhello.h
-        objects/wordhello.cpp
-        objects/wordworld.h
-        objects/wordworld.cpp
-        ${MY_INTERFACE} )
+#Собираем файлы исходников (.h и .cpp) из текущей директории и всех поддиректорий (за счет GLOB_RECURSE)
+file(GLOB_RECURSE SRC_LIST
+        "*.h"
+        "*.cpp")
 
-
-add_library(ComponentB SHARED ${SRC_LIST})
+#Добавляем наши исходники и интерфейсные файлы к проекту
+add_library(ComponentB SHARED
+    ${SRC_LIST}
+    ${MY_INTERFACE})
 
 target_link_libraries(ComponentB PRIVATE Qt${QT_VERSION_MAJOR}::Core ${MY_TARGET_LIBS})
 
 target_compile_definitions(ComponentB PRIVATE COMPONENTB_LIBRARY)
+
+#Эти команды нужны для передачи набора конфигов вверх к корневому CMakeList.txt
+file(GLOB COMPONENTB_CONFIG_FILES
+    "${CMAKE_CURRENT_SOURCE_DIR}/*.xml")
+set(MY_CONFIG_FILES "${MY_CONFIG_FILES};${COMPONENTB_CONFIG_FILES}" PARENT_SCOPE)
+#

@@ -7,19 +7,19 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(PROJECT_SOURCES
-        main.cpp
-        MainWindow.cpp
-        MainWindow.h
-        MainWindow.ui
-    )
-
+#Включаем собственные замисимости
 include(dependences.cmake)
+
+#Собираем файлы исходников (.h, .cpp и .ui) из текущей директории и всех поддиректорий (за счет GLOB_RECURSE)
+file(GLOB_RECURSE SRC_LIST
+        "*.h"
+        "*.cpp"
+        "*.ui")
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Core
         MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
+        ${SRC_LIST}
         ${MY_INTERFACE}
     )
 
@@ -30,14 +30,14 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 else()
     if(ANDROID)
         add_library(Core SHARED
-            ${PROJECT_SOURCES}
+            ${SRC_LIST}
             ${MY_INTERFACE}
         )
 # Define properties for Android with Qt 5 after find_package() calls as:
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
         add_executable(Core
-            ${PROJECT_SOURCES}
+            ${SRC_LIST}
             ${MY_INTERFACE}
         )
     endif()
@@ -60,3 +60,9 @@ install(TARGETS Core
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(Core)
 endif()
+
+#Эти команды нужны для передачи набора конфигов вверх к корневому CMakeList.txt
+file(GLOB COMPONENTB_CONFIG_FILES
+    "${CMAKE_CURRENT_SOURCE_DIR}/*.xml")
+set(MY_CONFIG_FILES "${MY_CONFIG_FILES};${COMPONENTB_CONFIG_FILES}" PARENT_SCOPE)
+#
