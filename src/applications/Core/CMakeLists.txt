@@ -4,13 +4,15 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-#Включаем собственные замисимости
+# Включаем собственные замисимости
 include(dependences.cmake)
 
 #Собираем файлы исходников (.h, .cpp и .ui) из текущей директории и всех поддиректорий (за счет GLOB_RECURSE)
+#   возможно это не лучшее решение, но позволяет не прописывать все файлы вручную при добавлении.
+#   (Для большого компонента будет очень длинный список)
 file(GLOB_RECURSE SRC_LIST
         "*.h"
         "*.cpp"
@@ -43,7 +45,12 @@ else()
     endif()
 endif()
 
-target_link_libraries(Core PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${MY_TARGET_LIBS})
+target_link_libraries(Core
+    PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
+    ${MY_TARGET_LIBS})
+
+target_include_directories(Core
+    PUBLIC ${MY_INCLUDE_PATH})
 
 set_target_properties(Core PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
@@ -54,6 +61,7 @@ set_target_properties(Core PROPERTIES
 )
 
 install(TARGETS Core
+    RUNTIME DESTINATION bin
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
@@ -64,5 +72,6 @@ endif()
 #Эти команды нужны для передачи набора конфигов вверх к корневому CMakeList.txt
 file(GLOB COMPONENTB_CONFIG_FILES
     "${CMAKE_CURRENT_SOURCE_DIR}/*.xml")
-set(MY_CONFIG_FILES "${MY_CONFIG_FILES};${COMPONENTB_CONFIG_FILES}" PARENT_SCOPE)
+set(MY_CONFIG_FILES
+    "${MY_CONFIG_FILES};${COMPONENTB_CONFIG_FILES}" PARENT_SCOPE)
 #

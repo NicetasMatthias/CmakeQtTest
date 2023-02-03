@@ -1,6 +1,6 @@
 #Ищем необходимую библиотеку и в случае успеха добавляем ее в переменную
 find_library(COMPONENTSCORE5ALPHA ComponentsCore5alpha HINTS /usr/local/lib64)
-if(NOT COMPONENTSCORE5ALPHA)
+if(NOT ${COMPONENTSCORE5ALPHA_FOUND})
   message(ERROR "COMPONENTSCORE5ALPHA has not been found")
   return()
 else()
